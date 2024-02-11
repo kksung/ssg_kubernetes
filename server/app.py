@@ -8,13 +8,15 @@ from flask_cors import CORS
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-# 데이터 베이스 연결
+
+# 데이터 베이스 연결 - 이미지 빌드 전 수정
 def getCon():
   return pymysql.connect(host="sqlcontainer",
                      user="root", password="passwd", 
                      db="firststep",
                      charset="utf8",
                      cursorclass=pymysql.cursors.DictCursor)
+
 
 def json_default(value):
   if isinstance(value, datetime.date):
