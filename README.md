@@ -3,7 +3,7 @@
 > > Step 2 - Kubernetes 배포
 <img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/c0d1c189-4ddd-406c-89e2-b964d9cafb5a" width=750 height=300>
 
-[개발 페이지 참고](https://github.com/kksung/temp-firststep)
+[개발 페이지 참고](https://github.com/kksung/webapi)
 
 <br>
 
