@@ -1,13 +1,18 @@
-# (firststep - 한걸음) 3-tier 웹사이트
-> Step 1 - Dockerizing
-> > Step 2 - Kubernetes 배포
+# 3-tier 웹페이지 Dockerizing & Kubernetes 배포 개인프로젝트
+> 개발 웹 = first-step, 한걸음
 <img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/c0d1c189-4ddd-406c-89e2-b964d9cafb5a" width=750 height=300>
-
-[개발 페이지 참고](https://github.com/kksung/webapi) -> HTML을 통한 프론트엔드 화면에서 React로 변경하여 프로젝트 수행 
+[개발 페이지 참고](https://github.com/kksung/webapi) -> HTML을 통한 프론트엔드 화면에서 React로 변경하여 프로젝트 수행
 
 <br>
 
+## 웹페이지 다이어그램 구성도
+- 3-tier
+
+<img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/a335589e-089e-4eb3-8ed8-c2d0af3430eb" width=300 height=400>
+
 ## Dockerizing 개요
+> 도커 이미지 빌드 -> 도커 컨테이너 실행
+
 * 컨테이너가 시작할 때 사용할 네트워크 생성
   - MySQL, React, Flask 도커 컨테이너 각각 모두 같은 네트워크 상에 배치
 
@@ -21,10 +26,15 @@ docker network ls
 
 <br>
 
-## 3-tier website Dockerizing 순서
+## Dockerizing 순서
 > 1 - MySQL (DB) 2 - Flask (Server) 3 - React
 
 <br>
+
+## Dockerizing 다이어그램 구성도
+- 도커 컨테이너
+<img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/064b3cc1-d98b-405d-a8c1-a8d6f884be39" width=400 height=450>
+
 
 ### MySQL DB Dockerizing
 - DB : firststep
@@ -90,6 +100,11 @@ docker container run -d -p 80 --name reactweb --net=mybridgenetwork kksung/react
 > 이미지 빌드 -> 도커 허브 -> YAML에 기입 후 배포
 
 <br>
+
+## Kubernetes 배포 다이어그램 구성도
+- SVC, Deployment
+<img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/07a93b93-cf98-48b5-9bea-7c52dd5ffcd4" width=600 height=430>
+
 
 ### Kubernetes YAML & 배포 포인트
 <img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/b8dbbda0-5df3-4913-8bf5-3574bc67cd30" width=330 height=250>
