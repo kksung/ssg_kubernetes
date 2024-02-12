@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-deployment
+spec:
+  # replicas: 3
+  selector:
+    matchLabels:
+      role: front
+  template:
+    metadata:
+      labels:
+        role: front
+    spec:
+      containers:
+      - name: reactcontainer
+        image: kksung/react-client:1.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-service
+spec:
+  type: LoadBalancer
+  selector:
+    role: front
+  ports:
+    - name: react-client
+      port: 80
+      targetPort: 80

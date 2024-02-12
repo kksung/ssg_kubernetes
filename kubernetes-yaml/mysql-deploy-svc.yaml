@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  selector:
+    matchLabels:
+      role: db-server
+  template:
+    metadata:
+      labels:
+        role: db-server
+    spec:
+      containers:
+      - name: sqlcontainer
+        image: kksung/sql-db:lab
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          subPath: mysql
+          name: pv-sql
+      volumes:
+      - name: pv-sql
+        persistentVolumeClaim:
+          claimName: pvc-sql # nfs pv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  clusterIP: 172.17.32.45 # 배포 후 추후 고정값 부여
+  selector:
+    role: db-server
+  ports:
+    - name: http
+      port: 3306
+      targetPort: 3306
+      protocol: TCP

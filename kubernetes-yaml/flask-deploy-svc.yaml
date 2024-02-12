@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+spec:
+  # replicas: 3
+  selector:
+    matchLabels:
+      role: db-server # role mysql과 통일
+  template:
+    metadata:
+      labels:
+        role: db-server
+    spec:
+      containers:
+      - name: flaskcontainer
+        image: kksung/flask-server:1.2
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+spec:
+  type: LoadBalancer
+  selector:
+    role: db-server
+  ports:
+    - name: flask-server
+      port: 5000
+      targetPort: 5000
