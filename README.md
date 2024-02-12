@@ -50,10 +50,23 @@ docker container run -d -p 80 --name reactweb --net=mybridgenetwork kksung/react
 <br>
 
 ## Kubernetes 배포
-> 이미지 빌드 -> 도커 허브 -> YAML 이미지에 기입 후 배포
+> 이미지 빌드 -> 도커 허브 -> YAML에 기입 후 배포
+
+<br>
+
+### Kubernetes YAML & 배포 포인트
+<img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/b8dbbda0-5df3-4913-8bf5-3574bc67cd30" width=330 height=250>
 
 1. ﻿DB는 로컬환경에서 사용한 이미지 deployment에 넣어서 바로 배포
 
-2. ﻿Flask 서버는 host IP 값을 mysql service의 ‘ClusterIP’로 변경
+2. ﻿Flask 서버는 app.py의 pymysql.connect 'host IP' 값을 mysql service의 ‘ClusterIP’값으로 변경 -> 이미지 빌드 -> 도커 허브 -> 배포
 
-3. r﻿eact는 Component의 js파일에서 axios부분 Flask 로드밸런서 External-IP 주소:5000으로 작성
+3. r﻿eact는 Component의 js파일에서 axios부분 path 값을 'Flask 로드밸런서 External-IP 주소:5000'으로 작성 -> 이미지 빌드 -> 도커 허브 -> 배포
+
+<br>
+
+### NFS PV? 
+- MySQL Deployment Volume으로 NFS PV를 사용 -> PVC를 통한 바인딩
+- PV, PVC -> 파드가 볼륨의 세부적인 사항을 몰라도 볼륨을 사용할 수 있도록 추상화해 주는 역할
+- NFS PV 사용 -> 클러스터 밖 외부 볼륨개념으로, 데이터 저장에 용이하다고 생각하여 사용
+  - hostPath -> 노드에 저장
