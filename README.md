@@ -2,7 +2,7 @@
 > 개발 웹 = first-step, 한걸음
 <img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/c0d1c189-4ddd-406c-89e2-b964d9cafb5a" width=750 height=300>
 
-[개발 페이지 참고](https://github.com/kksung/webapi) -> HTML을 통한 프론트엔드 화면에서 React로 변경하여 프로젝트 수행
+[개발 페이지 참고](https://github.com/kksung/ssg_webapi) -> HTML을 통한 프론트엔드 화면에서 React로 변경하여 프로젝트 수행
 
 <br>
 
