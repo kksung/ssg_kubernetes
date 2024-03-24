@@ -1,4 +1,4 @@
-# 3-tier 웹페이지 Dockerizing & Kubernetes 배포 프로젝트
+# 3-tier 웹 Dockerizing & Kubernetes 배포 개인프로젝트
 > 개발 웹 = first-step, 한걸음
 <img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/c0d1c189-4ddd-406c-89e2-b964d9cafb5a" width=750 height=300>
 
@@ -19,7 +19,7 @@
 
 <br>
 
-- 도커 네트워크 생성 명령 -> mybridgenetwork로 생성
+- 도커 네트워크 생성 -> 'mybridgenetwork' 
 ```
 docker network create --driver=bridge mybridgenetwork
 docker network ls
@@ -61,7 +61,7 @@ docker container run -d -p 3306 --name sqlcontainer -v sql:/var/lib/mysql --net=
 <img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/3fa6d585-e948-477a-ae85-f2a7faf24da5" width=270 height=220>
 
 
-- 빌드 전 포인트 -> app.py mysql 연결코드 (pymysql.connect) 수정
+- 빌드 전 포인트 -> app.py mysql 연결코드 'pymysql.connect' 수정
 
 
 ```
@@ -114,14 +114,12 @@ docker container run -d -p 80 --name reactweb --net=mybridgenetwork kksung/react
 
 2. ﻿Flask 서버는 app.py의 pymysql.connect 'host IP' 값을 mysql service의 'ClusterIP'값으로 변경 -> 이미지 빌드 -> 도커 허브 -> 배포
 
-3. r﻿eact는 Component의 js파일에서 'axios부분 path 값'을 'Flask 로드밸런서 서비스 External-IP 주소:5000'으로 작성 -> 이미지 빌드
-  
-   -> 도커 허브 -> 배포
+3. r﻿eact는 Component의 js파일에서 'axios부분 path 값'을 'Flask 로드밸런서 서비스 External-IP 주소:5000'으로 작성 -> 이미지 빌드 -> 도커 허브 -> 배포
 
 <br>
 
 ### NFS PV? 
-- MySQL Deployment Volume으로 NFS PV를 사용 -> PVC를 통한 바인딩
+- MySQL Deployment Volume으로 NFS PV를 사용, PVC를 통한 바인딩
 - PV, PVC -> 파드가 볼륨의 세부적인 사항을 몰라도 볼륨을 사용할 수 있도록 추상화해 주는 역할
 - NFS PV 사용 -> 클러스터 밖 외부 볼륨개념으로, 데이터 저장에 용이하다고 생각하여 사용
   - hostPath -> 노드에 저장
@@ -129,6 +127,6 @@ docker container run -d -p 80 --name reactweb --net=mybridgenetwork kksung/react
 <br>
 
 ## 프로젝트 유의사항 & 개선사항
-- Dockerizing - 동일한 도커 네트워크를 사용해야함
-- Dockerizing - 컨테이너 하나씩 순차적으로 실행해야하는 번거로움 -> 추후 Docker-Compose.yml 파일 활용
-- 코드의 연결 포인트 값을 배포할 때마다 수정해야하는 번거로움 -> 환경변수로 지정하여 수행해야 할 필요성 
+- Dockerizing - 컨테이너 모두 동일한 도커 네트워크를 사용해야함 -> 생성한 'mybridgenetwork' 사용 
+- Dockerizing - 컨테이너 하나씩 순차적으로 실행해야하는 번거로움 -> 추후 docker-compose 파일 활용
+- 코드의 연결 포인트 값을 배포할 때마다 수정해야하는 번거로움 -> 하드 코딩 대신 환경 변수 활용 
