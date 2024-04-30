@@ -1,8 +1,6 @@
 # 3-tier 웹 Dockerizing & Kubernetes 배포 개인프로젝트
-> 개발 웹 = first-step, 한걸음
+> 3-tier Architecture (React, Flask, MySQL) Web
 <img src="https://github.com/kksung/ssg_kubernetes/assets/110016279/c0d1c189-4ddd-406c-89e2-b964d9cafb5a" width=750 height=300>
-
-[개발 페이지 참고](https://github.com/kksung/ssg_webapi) -> HTML을 통한 프론트엔드 화면에서 React로 변경하여 프로젝트 수행
 
 <br>
 
@@ -85,7 +83,7 @@ docker container run -d -p 5000 --name flaskserver --net=mybridgenetwork kksung/
 <br>
 
 ### React Dockerizing
-- 빌드 포인트 -> axios 부분 url 변경
+- 빌드 포인트 -> 코드상 axios 부분 url 변경 (flask 실행 포트번호 반영)
 
 <br>
 
@@ -114,7 +112,7 @@ docker container run -d -p 80 --name reactweb --net=mybridgenetwork kksung/react
 
 2. ﻿Flask 서버는 app.py의 pymysql.connect 'host IP' 값을 mysql service의 'ClusterIP'값으로 변경 -> 이미지 빌드 -> 도커 허브 -> 배포
 
-3. r﻿eact는 Component의 js파일에서 'axios부분 path 값'을 'Flask 로드밸런서 서비스 External-IP 주소:5000'으로 작성 -> 이미지 빌드 -> 도커 허브 -> 배포
+3. R﻿eact는 Component의 js파일 코드상 'axios url' 값을 'Flask 로드밸런서 서비스 External-IP 주소:5000'으로 작성 -> 이미지 빌드 -> 도커 허브 -> 배포
 
 <br>
 
@@ -129,4 +127,4 @@ docker container run -d -p 80 --name reactweb --net=mybridgenetwork kksung/react
 ## 프로젝트 유의사항 & 개선사항
 - Dockerizing - 컨테이너 모두 동일한 도커 네트워크를 사용해야함 -> 생성한 'mybridgenetwork' 사용 
 - Dockerizing - 컨테이너 하나씩 순차적으로 실행해야하는 번거로움 -> 추후 docker-compose 파일 활용
-- 코드의 연결 포인트 값을 배포할 때마다 수정해야하는 번거로움 -> 하드 코딩 대신 환경 변수 활용 
+- 코드의 연결 포인트 값을 배포할 때마다 수정해야하는 번거로움 -> 하드 코딩 대신 환경 변수 활용
